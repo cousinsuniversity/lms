@@ -6,324 +6,459 @@
     <title>Cousins University Digital LMS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Blackboard Learn Exact Styling */
+        :root {
+            --bb-primary: #000;
+            --bb-secondary: #fff;
+            --bb-accent: #1372d3;
+            --bb-accent-hover: #0d5ba8;
+            --bb-gray-100: #f5f5f5;
+            --bb-gray-200: #e6e6e6;
+            --bb-gray-300: #d0d0d0;
+            --bb-gray-400: #999;
+            --bb-gray-500: #666;
+            --bb-gray-600: #333;
+            --bb-red: #d1232a;
+            --bb-green: #0a7b1d;
+            --bb-yellow: #ffc107;
+            --bb-border-radius: 3px;
+            --bb-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            --bb-font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        :root {
-            --primary-color: #0052cc;
-            --secondary-color: #e7f1ff;
-            --accent-color: #ffc107;
-            --dark-color: #2d3b45;
-            --light-color: #f5f5f5;
-            --success-color: #28a745;
-            --danger-color: #dc3545;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
         }
 
         body {
-            background-color: #f8f9fa;
-            color: var(--dark-color);
+            font-family: var(--bb-font);
+            font-size: 14px;
+            line-height: 1.42857;
+            color: var(--bb-gray-600);
+            background-color: var(--bb-gray-100);
+            min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* Header Styles */
-        .header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1rem 2rem;
+        /* Blackboard Header */
+        .bb-header {
+            background-color: var(--bb-primary);
+            color: var(--bb-secondary);
+            height: 50px;
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo i {
-            color: var(--accent-color);
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--accent-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        /* Main Layout */
-        .main-container {
-            display: flex;
-            min-height: calc(100vh - 70px);
-        }
-
-        /* Sidebar Styles */
-        .sidebar {
-            width: 250px;
-            background-color: var(--dark-color);
-            color: white;
-            padding: 1.5rem 0;
-            transition: var(--transition);
-        }
-
-        .sidebar.collapsed {
-            width: 70px;
-        }
-
-        .sidebar-toggle {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            margin-left: 1rem;
-        }
-
-        .nav-menu {
-            list-style: none;
-            margin-top: 1.5rem;
-        }
-
-        .nav-item {
-            padding: 0.8rem 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .nav-item:hover, .nav-item.active {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-left: 4px solid var(--accent-color);
-        }
-
-        .nav-item i {
-            width: 20px;
-            text-align: center;
-        }
-
-        .nav-text {
-            white-space: nowrap;
-            overflow: hidden;
-        }
-
-        .sidebar.collapsed .nav-text {
-            display: none;
-        }
-
-        /* Main Content Area */
-        .content {
-            flex: 1;
-            padding: 2rem;
-            overflow-y: auto;
-        }
-
-        .page-title {
-            margin-bottom: 1.5rem;
-            color: var(--primary-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .page-title h1 {
-            font-size: 2rem;
-        }
-
-        /* Course Cards */
-        .courses-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .course-card {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .course-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .course-header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1.2rem;
-            position: relative;
-        }
-
-        .course-code {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        .course-title {
-            font-size: 1.3rem;
-            margin-top: 0.3rem;
-        }
-
-        .course-instructor {
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .course-body {
-            padding: 1.2rem;
-        }
-
-        .course-progress {
-            margin-bottom: 1rem;
-        }
-
-        .progress-bar {
-            height: 8px;
-            background-color: #e9ecef;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 0.5rem;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background-color: var(--success-color);
-            border-radius: 4px;
-            transition: width 0.5s ease;
-        }
-
-        .course-actions {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 1rem;
-        }
-
-        .btn {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: #0041a8;
-        }
-
-        .btn-secondary {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-        }
-
-        .btn-secondary:hover {
-            background-color: #d6e4ff;
-        }
-
-        /* Custom Dialog Styles */
-        .dialog-overlay {
+            padding: 0 20px;
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            right: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--bb-accent);
+        }
+
+        .bb-logo {
             display: flex;
-            justify-content: center;
             align-items: center;
+            gap: 10px;
+        }
+
+        .bb-logo-icon {
+            width: 30px;
+            height: 30px;
+            background: var(--bb-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bb-logo-text {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .bb-header-nav {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .bb-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            color: var(--bb-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            padding: 5px 10px;
+            border-radius: var(--bb-border-radius);
+            transition: background-color 0.2s;
+        }
+
+        .bb-nav-item:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .bb-user-menu {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        .bb-user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1372d3, #0a7b1d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* Global Navigation */
+        .bb-global-nav {
+            position: fixed;
+            top: 50px;
+            left: 0;
+            bottom: 0;
+            width: 64px;
+            background-color: var(--bb-gray-600);
+            color: var(--bb-secondary);
+            z-index: 999;
+            overflow-y: auto;
+            transition: width 0.3s ease;
+        }
+
+        .bb-global-nav:hover {
+            width: 200px;
+        }
+
+        .bb-global-nav:hover .bb-nav-label {
+            display: inline;
+            opacity: 1;
+        }
+
+        .bb-nav-items {
+            list-style: none;
+            padding-top: 20px;
+        }
+
+        .bb-nav-item-global {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 15px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .bb-nav-item-global:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .bb-nav-item-global.active {
+            background-color: var(--bb-accent);
+        }
+
+        .bb-nav-icon {
+            width: 24px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .bb-nav-label {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 13px;
+        }
+
+        /* Main Content */
+        .bb-main-content {
+            margin-top: 50px;
+            margin-left: 64px;
+            padding: 20px;
+            min-height: calc(100vh - 50px);
+            transition: margin-left 0.3s ease;
+        }
+
+        .bb-global-nav:hover ~ .bb-main-content {
+            margin-left: 200px;
+        }
+
+        /* Blackboard Course Cards */
+        .bb-page-title {
+            font-size: 24px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            color: var(--bb-gray-600);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .bb-courses-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .bb-course-card {
+            background-color: var(--bb-secondary);
+            border: 1px solid var(--bb-gray-200);
+            border-radius: var(--bb-border-radius);
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            min-height: 150px;
+        }
+
+        .bb-course-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--bb-shadow);
+        }
+
+        .bb-course-banner {
+            height: 100px;
+            background: linear-gradient(135deg, var(--bb-accent), #0a7b1d);
+            position: relative;
+            padding: 15px;
+            color: var(--bb-secondary);
+        }
+
+        .bb-course-code {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .bb-course-title {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .bb-course-menu {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .bb-course-menu:hover {
+            background: rgba(0,0,0,0.5);
+        }
+
+        .bb-course-content {
+            padding: 15px;
+        }
+
+        .bb-course-instructor {
+            font-size: 12px;
+            color: var(--bb-gray-500);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .bb-course-progress {
+            margin-top: 15px;
+        }
+
+        .bb-progress-label {
+            font-size: 12px;
+            color: var(--bb-gray-500);
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .bb-progress-bar {
+            height: 6px;
+            background-color: var(--bb-gray-200);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .bb-progress-fill {
+            height: 100%;
+            background-color: var(--bb-accent);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .bb-course-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .bb-btn {
+            padding: 6px 12px;
+            border: 1px solid var(--bb-gray-300);
+            background-color: var(--bb-secondary);
+            color: var(--bb-gray-600);
+            border-radius: var(--bb-border-radius);
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .bb-btn:hover {
+            background-color: var(--bb-gray-100);
+        }
+
+        .bb-btn-primary {
+            background-color: var(--bb-accent);
+            color: var(--bb-secondary);
+            border-color: var(--bb-accent);
+        }
+
+        .bb-btn-primary:hover {
+            background-color: var(--bb-accent-hover);
+        }
+
+        /* Blackboard Activity Stream */
+        .bb-activity-stream {
+            background-color: var(--bb-secondary);
+            border: 1px solid var(--bb-gray-200);
+            border-radius: var(--bb-border-radius);
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .bb-stream-title {
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--bb-gray-200);
+        }
+
+        .bb-stream-items {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .bb-stream-item {
+            display: flex;
+            gap: 15px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--bb-gray-100);
+        }
+
+        .bb-stream-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .bb-stream-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--bb-gray-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bb-gray-500);
+            flex-shrink: 0;
+        }
+
+        .bb-stream-content {
+            flex: 1;
+        }
+
+        .bb-stream-meta {
+            font-size: 12px;
+            color: var(--bb-gray-500);
+            margin-bottom: 5px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .bb-stream-text {
+            line-height: 1.5;
+        }
+
+        /* Blackboard Modal/Dialog */
+        .bb-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             z-index: 2000;
             opacity: 0;
             visibility: hidden;
-            transition: var(--transition);
+            transition: all 0.3s ease;
         }
 
-        .dialog-overlay.active {
+        .bb-modal-overlay.active {
             opacity: 1;
             visibility: visible;
         }
 
-        .dialog {
-            background-color: white;
-            border-radius: 8px;
+        .bb-modal {
+            background-color: var(--bb-secondary);
+            border-radius: var(--bb-border-radius);
             width: 90%;
-            max-width: 600px;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
             transform: translateY(-20px);
-            transition: var(--transition);
+            transition: transform 0.3s ease;
         }
 
-        .dialog-overlay.active .dialog {
+        .bb-modal-overlay.active .bb-modal {
             transform: translateY(0);
         }
 
-        .dialog-header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1.2rem;
+        .bb-modal-header {
+            background-color: var(--bb-gray-600);
+            color: var(--bb-secondary);
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-radius: 8px 8px 0 0;
         }
 
-        .dialog-title {
-            font-size: 1.3rem;
+        .bb-modal-title {
+            font-size: 18px;
+            font-weight: 400;
         }
 
-        .dialog-close {
+        .bb-modal-close {
             background: none;
             border: none;
-            color: white;
-            font-size: 1.5rem;
+            color: var(--bb-secondary);
+            font-size: 20px;
             cursor: pointer;
             width: 30px;
             height: 30px;
@@ -331,327 +466,465 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
+            transition: background-color 0.2s;
         }
 
-        .dialog-close:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+        .bb-modal-close:hover {
+            background-color: rgba(255,255,255,0.1);
         }
 
-        .dialog-body {
-            padding: 1.5rem;
+        .bb-modal-body {
+            padding: 20px;
+            max-height: 60vh;
+            overflow-y: auto;
         }
 
-        .dialog-footer {
-            padding: 1rem 1.5rem;
-            background-color: #f8f9fa;
+        .bb-modal-footer {
+            padding: 15px 20px;
+            background-color: var(--bb-gray-100);
+            border-top: 1px solid var(--bb-gray-200);
             display: flex;
             justify-content: flex-end;
-            gap: 1rem;
-            border-radius: 0 0 8px 8px;
+            gap: 10px;
         }
 
-        /* Announcements */
-        .announcements-container {
-            background-color: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            margin-top: 2rem;
+        /* Blackboard Tabs */
+        .bb-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--bb-gray-200);
+            margin-bottom: 20px;
         }
 
-        .announcement {
-            padding: 1rem 0;
-            border-bottom: 1px solid #e9ecef;
+        .bb-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            font-size: 14px;
         }
 
-        .announcement:last-child {
-            border-bottom: none;
+        .bb-tab:hover {
+            background-color: var(--bb-gray-100);
         }
 
-        .announcement-title {
+        .bb-tab.active {
+            border-bottom-color: var(--bb-accent);
+            color: var(--bb-accent);
+        }
+
+        .bb-tab-content {
+            display: none;
+        }
+
+        .bb-tab-content.active {
+            display: block;
+        }
+
+        /* Blackboard Table */
+        .bb-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .bb-table th {
+            background-color: var(--bb-gray-100);
+            text-align: left;
+            padding: 12px 15px;
             font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
+            border: 1px solid var(--bb-gray-200);
+            font-size: 13px;
         }
 
-        .announcement-meta {
-            font-size: 0.85rem;
-            color: #6c757d;
+        .bb-table td {
+            padding: 12px 15px;
+            border: 1px solid var(--bb-gray-200);
+            vertical-align: top;
+        }
+
+        .bb-table tr:hover {
+            background-color: var(--bb-gray-100);
+        }
+
+        /* Blackboard Forms */
+        .bb-form-group {
+            margin-bottom: 20px;
+        }
+
+        .bb-form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--bb-gray-600);
+        }
+
+        .bb-form-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--bb-gray-300);
+            border-radius: var(--bb-border-radius);
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .bb-form-control:focus {
+            outline: none;
+            border-color: var(--bb-accent);
+            box-shadow: 0 0 0 2px rgba(19, 114, 211, 0.1);
+        }
+
+        /* Blackboard Alerts */
+        .bb-alert {
+            padding: 12px 15px;
+            border-radius: var(--bb-border-radius);
+            margin-bottom: 20px;
             display: flex;
-            gap: 1rem;
-            margin-bottom: 0.5rem;
+            align-items: flex-start;
+            gap: 10px;
         }
 
-        /* Activity Feed */
-        .activity-feed {
-            margin-top: 2rem;
+        .bb-alert-info {
+            background-color: #e7f3ff;
+            border: 1px solid #b3d7ff;
+            color: #0066cc;
         }
 
-        .activity-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background-color: white;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            box-shadow: var(--shadow);
-            animation: slideIn 0.5s ease;
+        .bb-alert-success {
+            background-color: #e7f7e7;
+            border: 1px solid #b3e0b3;
+            color: var(--bb-green);
         }
 
-        @keyframes slideIn {
+        .bb-alert-warning {
+            background-color: #fff8e1;
+            border: 1px solid #ffe082;
+            color: #ff9800;
+        }
+
+        .bb-alert-danger {
+            background-color: #fdeaea;
+            border: 1px solid #f5c6cb;
+            color: var(--bb-red);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .bb-global-nav {
+                width: 0;
+            }
+            
+            .bb-main-content {
+                margin-left: 0;
+            }
+            
+            .bb-global-nav:hover {
+                width: 200px;
+                z-index: 1001;
+            }
+            
+            .bb-courses-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .bb-header-nav {
+                display: none;
+            }
+        }
+
+        /* Blackboard Animations */
+        @keyframes bb-fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes bb-slideDown {
             from {
                 opacity: 0;
-                transform: translateX(-20px);
+                transform: translateY(-10px);
             }
             to {
                 opacity: 1;
-                transform: translateX(0);
+                transform: translateY(0);
             }
         }
 
-        .activity-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
+        .bb-fade-in {
+            animation: bb-fadeIn 0.3s ease;
+        }
+
+        .bb-slide-down {
+            animation: bb-slideDown 0.3s ease;
+        }
+
+        /* Blackboard Course Menu Dropdown */
+        .bb-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: var(--bb-secondary);
+            border: 1px solid var(--bb-gray-200);
+            border-radius: var(--bb-border-radius);
+            box-shadow: var(--bb-shadow);
+            min-width: 200px;
+            z-index: 100;
+            display: none;
+        }
+
+        .bb-dropdown.active {
+            display: block;
+            animation: bb-slideDown 0.2s ease;
+        }
+
+        .bb-dropdown-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.2s;
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 10px;
         }
 
-        .activity-content {
-            flex: 1;
+        .bb-dropdown-item:hover {
+            background-color: var(--bb-gray-100);
         }
 
-        .activity-time {
-            font-size: 0.8rem;
-            color: #6c757d;
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 1.5rem;
-            background-color: var(--dark-color);
-            color: white;
-            margin-top: 2rem;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .main-container {
-                flex-direction: column;
-            }
-
-            .sidebar {
-                width: 100%;
-                padding: 1rem;
-            }
-
-            .sidebar.collapsed {
-                width: 100%;
-            }
-
-            .sidebar.collapsed .nav-text {
-                display: inline;
-            }
-
-            .nav-menu {
-                display: flex;
-                overflow-x: auto;
-                margin-top: 0;
-            }
-
-            .nav-item {
-                flex-direction: column;
-                padding: 0.5rem;
-                text-align: center;
-                min-width: 80px;
-            }
-
-            .nav-item:hover, .nav-item.active {
-                border-left: none;
-                border-bottom: 4px solid var(--accent-color);
-            }
-
-            .courses-container {
-                grid-template-columns: 1fr;
-            }
+        .bb-dropdown-divider {
+            height: 1px;
+            background-color: var(--bb-gray-200);
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="logo-container">
-            <button class="sidebar-toggle" id="sidebarToggle">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="logo">
+    <!-- Blackboard Header -->
+    <header class="bb-header">
+        <div class="bb-logo">
+            <div class="bb-logo-icon">
                 <i class="fas fa-graduation-cap"></i>
-                <span>Cousins University Digital LMS</span>
             </div>
+            <div class="bb-logo-text">Blackboard Learn</div>
+            <div style="font-size: 12px; opacity: 0.8; margin-left: 10px;">Cousins University</div>
         </div>
-        <div class="user-info">
-            <div class="user-avatar">JD</div>
+        
+        <nav class="bb-header-nav">
+            <a href="#" class="bb-nav-item">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#" class="bb-nav-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Calendar</span>
+            </a>
+            <a href="#" class="bb-nav-item">
+                <i class="fas fa-envelope"></i>
+                <span>Messages</span>
+                <span class="bb-badge" style="background: var(--bb-red); color: white; padding: 2px 6px; border-radius: 10px; font-size: 11px;">3</span>
+            </a>
+            <a href="#" class="bb-nav-item">
+                <i class="fas fa-tasks"></i>
+                <span>Grades</span>
+            </a>
+        </nav>
+        
+        <div class="bb-user-menu">
+            <div class="bb-user-avatar">JD</div>
             <div>
-                <div class="user-name">John Doe</div>
-                <div class="user-role">Student</div>
+                <div style="font-size: 13px; font-weight: 600;">John Doe</div>
+                <div style="font-size: 11px; opacity: 0.8;">Student</div>
             </div>
+            <i class="fas fa-chevron-down" style="font-size: 12px; margin-left: 5px;"></i>
         </div>
     </header>
 
-    <!-- Main Container -->
-    <div class="main-container">
-        <!-- Sidebar -->
-        <nav class="sidebar" id="sidebar">
-            <ul class="nav-menu">
-                <li class="nav-item active" data-page="dashboard">
-                    <i class="fas fa-home"></i>
-                    <span class="nav-text">Dashboard</span>
-                </li>
-                <li class="nav-item" data-page="courses">
+    <!-- Global Navigation -->
+    <nav class="bb-global-nav">
+        <ul class="bb-nav-items">
+            <li class="bb-nav-item-global active" data-tab="dashboard">
+                <div class="bb-nav-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <div class="bb-nav-label">Dashboard</div>
+            </li>
+            <li class="bb-nav-item-global" data-tab="courses">
+                <div class="bb-nav-icon">
                     <i class="fas fa-book"></i>
-                    <span class="nav-text">My Courses</span>
-                </li>
-                <li class="nav-item" data-page="announcements">
-                    <i class="fas fa-bullhorn"></i>
-                    <span class="nav-text">Announcements</span>
-                </li>
-                <li class="nav-item" data-page="grades">
+                </div>
+                <div class="bb-nav-label">Courses</div>
+            </li>
+            <li class="bb-nav-item-global" data-tab="organizations">
+                <div class="bb-nav-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="bb-nav-label">Organizations</div>
+            </li>
+            <li class="bb-nav-item-global" data-tab="calendar">
+                <div class="bb-nav-icon">
+                    <i class="fas fa-calendar"></i>
+                </div>
+                <div class="bb-nav-label">Calendar</div>
+            </li>
+            <li class="bb-nav-item-global" data-tab="messages">
+                <div class="bb-nav-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div class="bb-nav-label">Messages</div>
+            </li>
+            <li class="bb-nav-item-global" data-tab="grades">
+                <div class="bb-nav-icon">
                     <i class="fas fa-chart-bar"></i>
-                    <span class="nav-text">Grades</span>
-                </li>
-                <li class="nav-item" data-page="calendar">
-                    <i class="fas fa-calendar-alt"></i>
-                    <span class="nav-text">Calendar</span>
-                </li>
-                <li class="nav-item" data-page="messages">
-                    <i class="fas fa-envelope"></i>
-                    <span class="nav-text">Messages</span>
-                </li>
-                <li class="nav-item" data-page="resources">
+                </div>
+                <div class="bb-nav-label">Grades</div>
+            </li>
+            <li class="bb-nav-item-global" data-tab="tools">
+                <div class="bb-nav-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <div class="bb-nav-label">Tools</div>
+            </li>
+            <li class="bb-nav-item-global" data-tab="resources">
+                <div class="bb-nav-icon">
                     <i class="fas fa-folder"></i>
-                    <span class="nav-text">Resources</span>
-                </li>
-                <li class="nav-item" data-page="help">
-                    <i class="fas fa-question-circle"></i>
-                    <span class="nav-text">Help</span>
-                </li>
-            </ul>
-        </nav>
-
-        <!-- Main Content -->
-        <main class="content" id="content">
-            <!-- Dashboard Page (Default) -->
-            <div class="page-content active" id="dashboard-page">
-                <div class="page-title">
-                    <h1>Dashboard</h1>
-                    <button class="btn btn-primary" id="welcomeDialogBtn">
-                        <i class="fas fa-info-circle"></i> Welcome Info
-                    </button>
                 </div>
+                <div class="bb-nav-label">Resources</div>
+            </li>
+        </ul>
+    </nav>
 
-                <div class="courses-container">
-                    <!-- Course cards will be generated by JavaScript -->
-                </div>
+    <!-- Main Content -->
+    <main class="bb-main-content">
+        <!-- Dashboard Tab -->
+        <div class="bb-tab-content active" id="dashboard-tab">
+            <div class="bb-page-title">
+                <h1>My Blackboard Learn</h1>
+                <button class="bb-btn" id="customizeBtn">
+                    <i class="fas fa-cog"></i> Customize Page
+                </button>
+            </div>
 
-                <div class="announcements-container">
-                    <h2><i class="fas fa-bullhorn"></i> Recent Announcements</h2>
-                    <div class="announcements-list" id="announcements-list">
-                        <!-- Announcements will be generated by JavaScript -->
-                    </div>
-                </div>
-
-                <div class="activity-feed">
-                    <h2><i class="fas fa-rss"></i> Recent Activity</h2>
-                    <div class="activity-list" id="activity-list">
-                        <!-- Activity items will be generated by JavaScript -->
-                    </div>
+            <!-- Alerts -->
+            <div class="bb-alert bb-alert-info">
+                <i class="fas fa-info-circle"></i>
+                <div>
+                    <strong>Welcome to the new Blackboard Learn experience!</strong> Check out the new features and improvements.
                 </div>
             </div>
 
-            <!-- Courses Page -->
-            <div class="page-content" id="courses-page">
-                <div class="page-title">
-                    <h1>My Courses</h1>
-                    <button class="btn btn-primary" id="addCourseBtn">
-                        <i class="fas fa-plus"></i> Add Course
-                    </button>
-                </div>
-                <div class="courses-container" id="all-courses-container">
-                    <!-- All courses will be displayed here -->
+            <!-- Courses -->
+            <h2 style="font-size: 18px; font-weight: 400; margin: 25px 0 15px 0;">My Courses</h2>
+            <div class="bb-courses-container" id="courses-container">
+                <!-- Course cards will be dynamically generated -->
+            </div>
+
+            <!-- Activity Stream -->
+            <div class="bb-activity-stream">
+                <h3 class="bb-stream-title">What's New</h3>
+                <div class="bb-stream-items" id="activity-stream">
+                    <!-- Activity items will be dynamically generated -->
                 </div>
             </div>
 
-            <!-- Announcements Page -->
-            <div class="page-content" id="announcements-page">
-                <div class="page-title">
-                    <h1>Announcements</h1>
+            <!-- Grades Overview -->
+            <div class="bb-activity-stream" style="margin-top: 20px;">
+                <h3 class="bb-stream-title">Grades Overview</h3>
+                <div style="padding: 10px 0;">
+                    <table class="bb-table">
+                        <thead>
+                            <tr>
+                                <th>Course</th>
+                                <th>Last Activity</th>
+                                <th>Grade</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="grades-table">
+                            <!-- Grades will be dynamically generated -->
+                        </tbody>
+                    </table>
                 </div>
-                <div class="announcements-container">
-                    <div id="full-announcements-list">
-                        <!-- All announcements will be displayed here -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- Other pages will be added similarly -->
-        </main>
-    </div>
-
-    <!-- Custom Dialog for Welcome Info -->
-    <div class="dialog-overlay" id="welcomeDialog">
-        <div class="dialog">
-            <div class="dialog-header">
-                <h2 class="dialog-title">Welcome to Cousins University Digital LMS</h2>
-                <button class="dialog-close" id="closeWelcomeDialog">&times;</button>
-            </div>
-            <div class="dialog-body">
-                <p>Welcome to the Cousins University Digital Learning Management System. This platform provides you with access to all your course materials, assignments, grades, and communication tools.</p>
-                <h3>Getting Started</h3>
-                <ul>
-                    <li>Navigate through the sidebar to access different sections</li>
-                    <li>Click on any course card to view course details</li>
-                    <li>Check announcements regularly for updates from instructors</li>
-                    <li>Use the calendar to keep track of important dates</li>
-                </ul>
-                <h3>Need Help?</h3>
-                <p>Visit the Help section or contact the IT support desk for assistance with using the LMS.</p>
-            </div>
-            <div class="dialog-footer">
-                <button class="btn btn-secondary" id="closeWelcomeDialog2">Close</button>
-                <button class="btn btn-primary" id="tourBtn">Start Tour</button>
             </div>
         </div>
-    </div>
 
-    <!-- Custom Dialog for Course Details -->
-    <div class="dialog-overlay" id="courseDialog">
-        <div class="dialog">
-            <div class="dialog-header">
-                <h2 class="dialog-title" id="courseDialogTitle">Course Details</h2>
-                <button class="dialog-close" id="closeCourseDialog">&times;</button>
+        <!-- Courses Tab -->
+        <div class="bb-tab-content" id="courses-tab">
+            <div class="bb-page-title">
+                <h1>My Courses</h1>
+                <button class="bb-btn bb-btn-primary" id="courseCatalogBtn">
+                    <i class="fas fa-search"></i> Course Catalog
+                </button>
             </div>
-            <div class="dialog-body">
-                <div id="courseDialogContent">
+
+            <!-- Tabs for Courses View -->
+            <div class="bb-tabs">
+                <div class="bb-tab active" data-view="current">Current Courses</div>
+                <div class="bb-tab" data-view="upcoming">Upcoming</div>
+                <div class="bb-tab" data-view="past">Past Courses</div>
+            </div>
+
+            <div class="bb-courses-container" id="all-courses-container">
+                <!-- All courses will be displayed here -->
+            </div>
+        </div>
+
+        <!-- Other tabs would follow similar structure -->
+    </main>
+
+    <!-- Course Details Modal -->
+    <div class="bb-modal-overlay" id="courseModal">
+        <div class="bb-modal">
+            <div class="bb-modal-header">
+                <h2 class="bb-modal-title" id="courseModalTitle">Course Details</h2>
+                <button class="bb-modal-close" id="closeCourseModal">&times;</button>
+            </div>
+            <div class="bb-modal-body">
+                <div id="courseModalContent">
                     <!-- Course details will be loaded here -->
                 </div>
             </div>
-            <div class="dialog-footer">
-                <button class="btn btn-secondary" id="closeCourseDialog2">Close</button>
-                <button class="btn btn-primary" id="enterCourseBtn">Enter Course</button>
+            <div class="bb-modal-footer">
+                <button class="bb-btn" id="cancelCourseModal">Close</button>
+                <button class="bb-btn bb-btn-primary" id="enterCourseModal">Enter Course</button>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>Cousins University Digital LMS &copy; 2023 | Powered by Blackboard-inspired Design</p>
-        <p>This is a demonstration application for educational purposes.</p>
-    </footer>
+    <!-- Announcement Modal -->
+    <div class="bb-modal-overlay" id="announcementModal">
+        <div class="bb-modal">
+            <div class="bb-modal-header">
+                <h2 class="bb-modal-title" id="announcementModalTitle">Announcement</h2>
+                <button class="bb-modal-close" id="closeAnnouncementModal">&times;</button>
+            </div>
+            <div class="bb-modal-body">
+                <div id="announcementModalContent">
+                    <!-- Announcement content will be loaded here -->
+                </div>
+            </div>
+            <div class="bb-modal-footer">
+                <button class="bb-btn bb-btn-primary" id="closeAnnouncementModalBtn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Course Menu Dropdown Template -->
+    <div class="bb-dropdown" id="courseMenuDropdown" style="display: none;">
+        <div class="bb-dropdown-item" data-action="enter">
+            <i class="fas fa-door-open"></i>
+            <span>Enter Course</span>
+        </div>
+        <div class="bb-dropdown-item" data-action="details">
+            <i class="fas fa-info-circle"></i>
+            <span>Course Details</span>
+        </div>
+        <div class="bb-dropdown-divider"></div>
+        <div class="bb-dropdown-item" data-action="messages">
+            <i class="fas fa-envelope"></i>
+            <span>Send Message</span>
+        </div>
+        <div class="bb-dropdown-item" data-action="calendar">
+            <i class="fas fa-calendar-plus"></i>
+            <span>Add to Calendar</span>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
