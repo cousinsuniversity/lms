@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cousins University Digital LMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #0052cc;
+            --secondary-color: #e7f1ff;
+            --accent-color: #ffc107;
+            --dark-color: #2d3b45;
+            --light-color: #f5f5f5;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: var(--dark-color);
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--accent-color);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: var(--dark-color);
+            color: white;
+            padding: 1.5rem 0;
+            transition: var(--transition);
+        }
+
+        .sidebar.collapsed {
+            width: 70px;
+        }
+
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .nav-menu {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .nav-item {
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .nav-text {
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed .nav-text {
+            display: none;
+        }
+
+        /* Main Content Area */
+        .content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .page-title {
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .page-title h1 {
+            font-size: 2rem;
+        }
+
+        /* Course Cards */
+        .courses-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .course-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.2rem;
+            position: relative;
+        }
+
+        .course-code {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .course-title {
+            font-size: 1.3rem;
+            margin-top: 0.3rem;
+        }
+
+        .course-instructor {
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .course-body {
+            padding: 1.2rem;
+        }
+
+        .course-progress {
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--success-color);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .course-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0041a8;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #d6e4ff;
+        }
+
+        /* Custom Dialog Styles */
+        .dialog-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .dialog-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dialog {
+            background-color: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-20px);
+            transition: var(--transition);
+        }
+
+        .dialog-overlay.active .dialog {
+            transform: translateY(0);
+        }
+
+        .dialog-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .dialog-title {
+            font-size: 1.3rem;
+        }
+
+        .dialog-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .dialog-close:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .dialog-body {
+            padding: 1.5rem;
+        }
+
+        .dialog-footer {
+            padding: 1rem 1.5rem;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* Announcements */
+        .announcements-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin-top: 2rem;
+        }
+
+        .announcement {
+            padding: 1rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .announcement:last-child {
+            border-bottom: none;
+        }
+
+        .announcement-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .announcement-meta {
+            font-size: 0.85rem;
+            color: #6c757d;
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Activity Feed */
+        .activity-feed {
+            margin-top: 2rem;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-time {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--dark-color);
+            color: white;
+            margin-top: 2rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 1rem;
+            }
+
+            .sidebar.collapsed {
+                width: 100%;
+            }
+
+            .sidebar.collapsed .nav-text {
+                display: inline;
+            }
+
+            .nav-menu {
+                display: flex;
+                overflow-x: auto;
+                margin-top: 0;
+            }
+
+            .nav-item {
+                flex-direction: column;
+                padding: 0.5rem;
+                text-align: center;
+                min-width: 80px;
+            }
+
+            .nav-item:hover, .nav-item.active {
+                border-left: none;
+                border-bottom: 4px solid var(--accent-color);
+            }
+
+            .courses-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-container">
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Cousins University Digital LMS</span>
+            </div>
+        </div>
+        <div class="user-info">
+            <div class="user-avatar">JD</div>
+            <div>
+                <div class="user-name">John Doe</div>
+                <div class="user-role">Student</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <ul class="nav-menu">
+                <li class="nav-item active" data-page="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Dashboard</span>
+                </li>
+                <li class="nav-item" data-page="courses">
+                    <i class="fas fa-book"></i>
+                    <span class="nav-text">My Courses</span>
+                </li>
+                <li class="nav-item" data-page="announcements">
+                    <i class="fas fa-bullhorn"></i>
+                    <span class="nav-text">Announcements</span>
+                </li>
+                <li class="nav-item" data-page="grades">
+                    <i class="fas fa-chart-bar"></i>
+                    <span class="nav-text">Grades</span>
+                </li>
+                <li class="nav-item" data-page="calendar">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="nav-text">Calendar</span>
+                </li>
+                <li class="nav-item" data-page="messages">
+                    <i class="fas fa-envelope"></i>
+                    <span class="nav-text">Messages</span>
+                </li>
+                <li class="nav-item" data-page="resources">
+                    <i class="fas fa-folder"></i>
+                    <span class="nav-text">Resources</span>
+                </li>
+                <li class="nav-item" data-page="help">
+                    <i class="fas fa-question-circle"></i>
+                    <span class="nav-text">Help</span>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content" id="content">
+            <!-- Dashboard Page (Default) -->
+            <div class="page-content active" id="dashboard-page">
+                <div class="page-title">
+                    <h1>Dashboard</h1>
+                    <button class="btn btn-primary" id="welcomeDialogBtn">
+                        <i class="fas fa-info-circle"></i> Welcome Info
+                    </button>
+                </div>
+
+                <div class="courses-container">
+                    <!-- Course cards will be generated by JavaScript -->
+                </div>
+
+                <div class="announcements-container">
+                    <h2><i class="fas fa-bullhorn"></i> Recent Announcements</h2>
+                    <div class="announcements-list" id="announcements-list">
+                        <!-- Announcements will be generated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="activity-feed">
+                    <h2><i class="fas fa-rss"></i> Recent Activity</h2>
+                    <div class="activity-list" id="activity-list">
+                        <!-- Activity items will be generated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Courses Page -->
+            <div class="page-content" id="courses-page">
+                <div class="page-title">
+                    <h1>My Courses</h1>
+                    <button class="btn btn-primary" id="addCourseBtn">
+                        <i class="fas fa-plus"></i> Add Course
+                    </button>
+                </div>
+                <div class="courses-container" id="all-courses-container">
+                    <!-- All courses will be displayed here -->
+                </div>
+            </div>
+
+            <!-- Announcements Page -->
+            <div class="page-content" id="announcements-page">
+                <div class="page-title">
+                    <h1>Announcements</h1>
+                </div>
+                <div class="announcements-container">
+                    <div id="full-announcements-list">
+                        <!-- All announcements will be displayed here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other pages will be added similarly -->
+        </main>
+    </div>
+
+    <!-- Custom Dialog for Welcome Info -->
+    <div class="dialog-overlay" id="welcomeDialog">
+        <div class="dialog">
+            <div class="dialog-header">
+                <h2 class="dialog-title">Welcome to Cousins University Digital LMS</h2>
+                <button class="dialog-close" id="closeWelcomeDialog">&times;</button>
+            </div>
+            <div class="dialog-body">
+                <p>Welcome to the Cousins University Digital Learning Management System. This platform provides you with access to all your course materials, assignments, grades, and communication tools.</p>
+                <h3>Getting Started</h3>
+                <ul>
+                    <li>Navigate through the sidebar to access different sections</li>
+                    <li>Click on any course card to view course details</li>
+                    <li>Check announcements regularly for updates from instructors</li>
+                    <li>Use the calendar to keep track of important dates</li>
+                </ul>
+                <h3>Need Help?</h3>
+                <p>Visit the Help section or contact the IT support desk for assistance with using the LMS.</p>
+            </div>
+            <div class="dialog-footer">
+                <button class="btn btn-secondary" id="closeWelcomeDialog2">Close</button>
+                <button class="btn btn-primary" id="tourBtn">Start Tour</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Dialog for Course Details -->
+    <div class="dialog-overlay" id="courseDialog">
+        <div class="dialog">
+            <div class="dialog-header">
+                <h2 class="dialog-title" id="courseDialogTitle">Course Details</h2>
+                <button class="dialog-close" id="closeCourseDialog">&times;</button>
+            </div>
+            <div class="dialog-body">
+                <div id="courseDialogContent">
+                    <!-- Course details will be loaded here -->
+                </div>
+            </div>
+            <div class="dialog-footer">
+                <button class="btn btn-secondary" id="closeCourseDialog2">Close</button>
+                <button class="btn btn-primary" id="enterCourseBtn">Enter Course</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Cousins University Digital LMS &copy; 2023 | Powered by Blackboard-inspired Design</p>
+        <p>This is a demonstration application for educational purposes.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
